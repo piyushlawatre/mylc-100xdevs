@@ -17,6 +17,7 @@ app.get("/", (req, res, next) => {
 
 app.post("/sign-up", (req, res, next) => {
   try {
+    //ZOD
     const User = z.object({
       email: z.string().email(),
       password: z.string().max(6).max(12),
