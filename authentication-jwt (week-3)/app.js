@@ -15,6 +15,7 @@ app.get("/", (req, res, next) => {
   res.json({ result: "Function: bound parserOnIncoming" });
 });
 
+//
 app.post("/sign-up", (req, res, next) => {
   try {
     const User = z.object({
