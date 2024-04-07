@@ -1,4 +1,6 @@
 import mongoose, { Schema } from "mongoose";
+import bcrypt from "bcrypt";
+const saltRound = 10;
 
 const UserSchema = new Schema({
   email: {
@@ -12,12 +14,18 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  salt: {
+    type: String,
+    required: true,
+  },
 });
 
 const User = mongoose.model("User", UserSchema);
 
 export async function signUp(user) {
   try {
+    user.salt = bcrypt.genSaltSync(saltRound);
+    user.password = bcrypt.hashSync(user.password, user.salt);
     const newUser = await User.create(user);
     console.log("User signed up successfully:", newUser);
     return newUser;
